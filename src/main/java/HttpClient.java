@@ -22,16 +22,27 @@ public class HttpClient {
 
         socket.getOutputStream().write(request.getBytes());
 
-        //istedenfor å skrive ut (sout), vil vi ta vare på teksten i en stringbuilder
-        StringBuilder result = new StringBuilder();
-        int c;
-        while ((c = socket.getInputStream().read()) != -1) {
-            result.append((char) c);
-        }
-        String responsMessage = result.toString();
+        //istedenfor å lese hele innholdet i request. ønsker å lese linje for linje
+        String statusLine = readLine(socket);
+
+        InputStream in = socket.getInputStream();
+
         //splitte meldingen. hvert mellomrom blir et eget tegn
         //verdi [1] = 400 (som er en string. vil gjøre den til int)
-        this.statusCode = Integer.parseInt(responsMessage.split(" ")[1]);
+        this.statusCode = Integer.parseInt(statusLine.split(" ")[1]);
+    }
+
+    //lese linje for linje og ikke n helt bulk
+    private String readLine(Socket socket) throws IOException {
+        InputStream in = socket.getInputStream();
+        //istedenfor å skrive ut (sout), vil vi ta vare på teksten i en stringbuilder
+        StringBuilder result = new StringBuilder();
+
+        int c;
+        while ((c = socket.getInputStream().read()) != -1 && c != '\r') { // når c = '\r'  betyr kommet til slutten av linja
+            result.append((char) c);
+        }
+        return result.toString();
     }
 
     public static void main(String[] args) throws IOException {
