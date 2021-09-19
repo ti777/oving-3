@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public class HttpClient {
 
-    //private final int statusCode;
+    private final int statusCode;
 
     //constructor
     public HttpClient(String host, int port, String requestTarget) throws IOException {
@@ -28,7 +28,10 @@ public class HttpClient {
         while ((c = socket.getInputStream().read()) != -1) {
             result.append((char) c);
         }
-        System.out.println(result);
+        String responsMessage = result.toString();
+        //splitte meldingen. hvert mellomrom blir et eget tegn
+        //verdi [1] = 400 (som er en string. vil gjøre den til int)
+        this.statusCode = Integer.parseInt(responsMessage.split(" ")[1]);
     }
 
     public static void main(String[] args) throws IOException {
@@ -51,6 +54,6 @@ public class HttpClient {
     }
 
     public int getStatusCode() {
-        return 0;
+        return statusCode;
     }
 }
