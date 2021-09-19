@@ -29,6 +29,6 @@ public class HttpClient {
 
 
     public int getStatusCode() {
-        return 400;
+        return 200;
     }
 }
