@@ -4,6 +4,10 @@ import java.net.Socket;
 import java.util.HashMap;
 
 public class HttpClient {
+    //constructor
+    public HttpClient(String host, int port, String requestTarget) {
+    }
+
     public static void main(String[] args) throws IOException {
         Socket socket = new Socket("httpbin.org", 80);
         String request = "GET /html HTTP/1.1\r\n" +
@@ -24,6 +28,7 @@ public class HttpClient {
     }
 
 
-
-
+    public int getStatusCode() {
+        return 400;
+    }
 }
