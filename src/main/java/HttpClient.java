@@ -4,6 +4,9 @@ import java.net.Socket;
 import java.util.HashMap;
 
 public class HttpClient {
+
+    private final int statusCode;
+    
     //constructor
     public HttpClient(String host, int port, String requestTarget) {
     }
@@ -29,6 +32,6 @@ public class HttpClient {
 
 
     public int getStatusCode() {
-        return 200;
+        return statusCode;
     }
 }
